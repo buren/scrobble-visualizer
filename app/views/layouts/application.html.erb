@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scrobble Visualizer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <%= stylesheet_link_tag bootstrap_css, media: 'all', 'data-turbolinks-track' => true  %>
+  <%= stylesheet_link_tag font_awesome_css, media: 'all', 'data-turbolinks-track' => true  %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  
+  <%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js', media: 'all', 'data-turbolinks-track' => true  %>
+  <%= javascript_include_tag bootstrap_js, media: 'all', 'data-turbolinks-track' => true  %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <%= javascript_include_tag 'http://code.highcharts.com/3.0.9/highcharts.js', 'chartkick' %>
+</head>
+<body>
+  <%= navbar do %>
+    <%= vertical do %>
+      <%= link_to 'Home', root_path %>
+    <% end %>
+    <%= horizontal do %>
+      <%= nav class: 'navbar-right' do %>
+        <%= link_to 'Home', root_path %>
+        <%= link_to 'Artists', artists_path %>
+        <%= link_to 'Tracks',  tracks_path %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <div class="container">
+    <%= yield %>
+  </div>
+
+</body>
+</html>

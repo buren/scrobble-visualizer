@@ -1,0 +1,41 @@
+<h1>View graph for</h1>
+
+<%= form_tag('/generate', method: :get, class: 'form-vertical') do %>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= label_tag :username %><br>
+        <%= text_field_tag :username, params[:username], class: 'form-control input-lg' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :max_pages %><br>
+        <%= text_field_tag :max_pages, params[:max_pages], class: 'form-control input-lg' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :url %><br>
+        <%= text_field_tag :url, (params[:url] || Search.last.try(:url)), class: 'form-control input-lg' %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= label_tag :base_selector %>
+        <%= text_field_tag :base_selector, (params[:base_selector] || Search.last.try(:base_selector)), class: 'form-control input-lg' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :artist_selector %>
+        <%= text_field_tag :artist_selector, (params[:artist_selector] || Search.last.try(:artist_selector)), class: 'form-control input-lg' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :track_selector %>
+        <%= text_field_tag :track_selector, (params[:track_selector] || Search.last.try(:track_selector)), class: 'form-control input-lg' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :scrobbled_at_selector %>
+        <%= text_field_tag :scrobbled_at_selector, (params[:scrobbled_at_selector] || Search.last.try(:scrobbled_at_selector)), class: 'form-control input-lg' %>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <%= submit_tag 'Submit', class: 'btn btn-success' %>
+  </div>
+<% end %>
