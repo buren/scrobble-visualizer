@@ -2,6 +2,9 @@ require 'open-uri'
 require 'nokogiri'
 
 class ScrobbleService
+  # Time to sleep between requests
+  SLEEPTIME = 0.3
+
   def initialize(user, options = {})
     @user      = user
     @options   = options
@@ -16,6 +19,7 @@ class ScrobbleService
 
   # Extract all scrobbles from service
   def tracks_for_url(url)
+    sleep SLEEPTIME
     Nokogiri::HTML(open(url))
       .css(@options['base_selector'])
       .map { |s| scrobble_info(s) }
