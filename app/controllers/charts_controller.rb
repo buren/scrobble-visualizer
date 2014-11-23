@@ -8,11 +8,15 @@ class ChartsController < ApplicationController
   end
 
   def scrobbles_by_hour
-    render json: Scrobble.group_by_hour_of_day(:scrobbled_at, format: '%H').count
+    hour_count = Scrobble.group_by_hour_of_day(:scrobbled_at, format: '%H').count
+    hour_count = hour_count.to_a.map! { |e| [e.first.to_i, e.last] }.sort_by { |e| e.first }
+    render json: hour_count
   end
 
   def scrobbles_by_week
-    render json: Scrobble.group_by_week(:scrobbled_at, format: '%W').count
+    week_count = Scrobble.group_by_week(:scrobbled_at, format: '%W').count
+    week_count = week_count.to_a.map! { |e| [e.first.to_i, e.last] }.sort_by { |e| e.first }
+    render json: week_count
   end
 
   def top_artist_scrobbles
