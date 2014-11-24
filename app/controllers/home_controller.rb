@@ -2,6 +2,14 @@ class HomeController < ApplicationController
   def index
   end
 
+  def api_generate
+    Thread.new do
+      scrobbles = LastFmApi.new.scrobbles(params[:username], max_pages: params[:max_pages])
+      Scrobble.create_scrobbles(scrobbles)
+    end
+    redirect_to tracks_url
+  end
+
   def generate
     Search.create!(
       url:                   params[:url],
@@ -12,11 +20,7 @@ class HomeController < ApplicationController
     )
     Thread.new do
       scrobbles = ScrobbleService.new(params[:username], params.to_h).scrobbles
-      scrobbles.each do |scrobble|
-        artist = Artist.where(name: scrobble[:artist]).first_or_create
-        track  = Track.where(name: scrobble[:track], artist: artist).first_or_create
-        Scrobble.create!(artist: artist, track: track, scrobbled_at: scrobble[:scrobbled_at].to_time(:utc))
-      end
+      Scrobble.create_scrobbles(scrobbles)
     end
     redirect_to tracks_url
   end

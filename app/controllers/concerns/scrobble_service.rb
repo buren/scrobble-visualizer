@@ -3,7 +3,7 @@ require 'nokogiri'
 
 class ScrobbleService
   # Time to sleep between requests
-  SLEEPTIME = 0.3
+  SLEEPTIME = 0.2
 
   def initialize(user, options = {})
     @user      = user

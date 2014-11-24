@@ -19,6 +19,8 @@ gem 'nokogiri'
 gem 'chartkick', github: 'buren/chartkick'
 gem 'groupdate'
 
+gem 'lastfm'
+
 gem 'bh', '~> 1.2'
 
 gem 'better_errors', group: :development
